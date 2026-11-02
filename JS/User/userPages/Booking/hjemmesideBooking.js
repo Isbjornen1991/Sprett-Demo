@@ -1,4 +1,6 @@
 function tegnHjemmesideBooking() {
+  if (model.app.currentPage === "bookingPage") return tegnBookeUtstyrSide();
+
   const tilstand = model.viewState.userHomePage;
   const innhold = /*HTML*/ `
     <section class="info-box">

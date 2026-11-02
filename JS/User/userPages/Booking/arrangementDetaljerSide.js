@@ -41,7 +41,7 @@ function tegnArrangementDetaljerSide() {
       <button
         class="wide-button"
         style="margin: 8px 0 0 0; width: 100%;"
-        onclick="toggleEventSignup('${arrangement.id}')"
+        onclick="togglePameldingPaArrangement('${arrangement.id}')"
       >
         ${erPameldt ? "Meld deg av" : "Meld deg på"}
       </button>
@@ -56,4 +56,27 @@ function tegnArrangementDetaljerSide() {
   `;
 
   return drawUserShell(innhold);
+}
+
+function togglePameldingPaArrangement(arrangementId) {
+  const arrangement = model.events.find(
+    (element) => String(element.id) === String(arrangementId),
+  );
+  if (!arrangement) return;
+
+  const pameldinger = arrangement.signups || [];
+  const alleredePameldt = pameldinger.some(
+    (pamelding) => pamelding.userId === model.app.loggedInUserId,
+  );
+
+  if (
+    !alleredePameldt &&
+    arrangement.maxParticipants &&
+    pameldinger.length >= arrangement.maxParticipants
+  ) {
+    alert("Arrangementet er fullt.");
+    return;
+  }
+
+  toggleEventSignup(arrangementId);
 }
