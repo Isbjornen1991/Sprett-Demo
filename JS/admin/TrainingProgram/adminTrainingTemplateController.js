@@ -26,7 +26,7 @@ function startEditTemplate(templateId) {
     updateView();
 }
 
-function saveTrainingProgram() {
+function saveTrainingTemplate() {
     const state = model.viewState.adminTrainingTemplatePage;
     const name = state.templateName.trim();
     if (name === "" || state.exercises.length === 0) return;

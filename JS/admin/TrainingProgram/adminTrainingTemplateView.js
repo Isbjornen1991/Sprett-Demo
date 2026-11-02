@@ -45,7 +45,7 @@ function createTemplateListHtml() {
     for (const template of model.trainingTemplates) {
         html += /*HTML*/ `
             <div class="subSection roomRow">
-                <span>${template.name} (${template.exercises-length} øvelser)</span>
+                <span>${template.name} (${template.exercises.length} øvelser)</span>
                 <div class="actionButtons">
                     <button onclick="startEditTemplate(${template.templateId})">✎</button>
                     <button onclick="deleteTrainingTemplate(${template.templateId})">X</button>

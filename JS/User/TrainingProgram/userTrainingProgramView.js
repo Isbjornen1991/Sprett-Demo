@@ -14,7 +14,7 @@ function createMyProgramsHtml() {
         `;
     }
 
-    if (html = "") {
+    if (html === "") {
     html = "<p>Du har ingen treningsprogram ennå.</p>";
     }
 

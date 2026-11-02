@@ -13,7 +13,7 @@ function useTrainingTemplate(templateId) {
     updateView();
 }
 function addUserExercise() {
-    model.viewState.userTrainingProgramPage.exercises.push({name: "", sets: "", weight: ""});
+    model.viewState.userTrainingProgramPage.exercises.push({name: "", sets: "", reps: "",  weight: ""});
     updateView();
 }
 
@@ -46,8 +46,8 @@ function saveTrainingProgram() {
 
     state.programName = "";
     state.exercises = [];
-    state,message = "";
-    navigateTo("userProfilHome");
+    state.message = "";
+    navigateTo("userProfileHome");
 }
 
 function selectTrainingProgram(programId) {
