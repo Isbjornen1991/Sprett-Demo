@@ -21,7 +21,7 @@ function createUserNavHtml() {
     { pages: ["userBulletinBoard"], text: "Oppslag" },
     { pages: ["userWebstore"], text: "Nettbutikk" },
     {
-      pages: ["userProfileHome", "userEditProfile", "userEditSubscription"],
+      pages: ["userProfileHome", "userEditProfile", "userEditSubscription", "userTrainingProgram"],
       text: "Profil",
     },
   ];

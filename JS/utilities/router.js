@@ -163,6 +163,14 @@ function updateView() {
       html = drawUserFeedbackPage();
       break;
 
+    case "userTrainingProgram":
+      html = drawUserTrainingProgramPage();
+      break;
+
+    case "adminTrainingTemplates":
+      html = drawAdminTrainingTemplates();
+      break;
+
     // Page Missing
     default:
       html = `<p>404 - Page not found</p>`;

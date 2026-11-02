@@ -79,6 +79,12 @@ function drawUserProfileHomePage() {
       </div>
 
       <div class="info-box">
+        <h3>Mine treningsprogram</h3>
+        ${createMyProgramsHtml()}
+        <button class="wide-button" onclick="navigateTo('userTrainingProgram')">Lag treningsprogram</button>
+      </div>
+
+      <div class="info-box">
         <h3>Dine Bestillinger</h3>
         <div style="display: flex; flex-direction: column; gap: 4px; max-height: 200px; overflow-y: auto;">
           ${ordersHtml}

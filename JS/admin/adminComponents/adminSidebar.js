@@ -14,6 +14,7 @@ function drawAdminSideBar() {
         <li onclick="navigateTo('manageRooms')">Saler</li>
         <li onclick="navigateTo('addProduct')">Legg til Produkt</li>
         <li onclick="navigateTo('editProduct')">Rediger Produkter</li>
+        <li onclick="navigateTo('adminTrainingTemplates')">Treningsmaler</li>
       </ul>
       <div class="codeoftheday adminCard">
         <h3>Dagens Kode</h3>
