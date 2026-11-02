@@ -22,7 +22,7 @@ function updateView() {
     //------------------------------------------------------------------------
     //                             SHARED AREA
     //------------------------------------------------------------------------
-    
+
     case "startPage":
       html = updateViewNotLoggedInPage();
       break;
@@ -35,7 +35,7 @@ function updateView() {
     case "newUserRegistration":
       html = drawNewUserRegistration();
       break;
-    
+
     //------------------------------------------------------------------------
     //                             ADMIN AREA
     //------------------------------------------------------------------------
@@ -117,17 +117,26 @@ function updateView() {
 
     //Booking Pages
 
+    case "bookingHomePage":
+      html = tegnHjemmesideBooking();
+      break;
+    case "equipmentBooking":
+      html = tegnBookeUtstyrSide();
+      break;
     case "bookingOverview":
       html = drawBookingOverviewScreen();
-      break;
-    case "bookingPage":
-      html = tegnHjemmesideBooking();
       break;
     case "eventDetailsPage":
       html = tegnArrangementDetaljerSide();
       break;
     case "arrangementerSide":
       html = tegnArrangementerSide();
+      break;
+    case "userChooseBookingDate":
+      html = drawBookingDateScreen();
+      break;
+    case "userBookingOverview":
+      html = drawBookingOverviewScreen();
       break;
 
     //Bulletin Area
