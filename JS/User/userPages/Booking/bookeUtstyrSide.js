@@ -1,5 +1,8 @@
 function tegnBookeUtstyrSide() {
+  cleanBookings();
   const tilstand = model.viewState.bookingPage;
+  const canBook = checkUserRights(model.app.loggedInUserId);
+
   const kategorier = model.equipmentCategories
     .map(
       (kategori) => /*HTML*/ `
@@ -15,6 +18,17 @@ function tegnBookeUtstyrSide() {
     .join("");
 
   const innhold = /*HTML*/ `
+    ${
+      !canBook
+        ? /*HTML*/ `
+            <div style="background: #fef2f2; border: 1px solid #f87171; border-radius: 12px; padding: 16px; margin-bottom: 16px; color: #991b1b; font-size: 0.9rem; text-align: center;">
+              <strong>Du kan ikke booke utstyr for øyeblikket.</strong><br>
+              Dette kan skyldes at du allerede har en aktiv booking, mangler godkjent medlemskap, eller at medlemskapet ditt ikke tillater utstyrsbooking.
+            </div>
+          `
+        : ""
+    }
+
     <section class="info-box">
       <h3>Book Utstyr</h3>
       <form onsubmit="event.preventDefault(); updateView();" style="display: flex; flex-direction: column; gap: 12px; margin: 0;">
@@ -49,14 +63,14 @@ function tegnBookeUtstyrSide() {
 
     <section class="info-box">
       <h3>Utstyr</h3>
-      ${lagUtstyrsSokeresultaterHtml()}
+      ${lagUtstyrsSokeresultaterHtml(canBook)}
     </section>
   `;
 
   return drawUserShell(innhold);
 }
 
-function lagUtstyrsSokeresultaterHtml() {
+function lagUtstyrsSokeresultaterHtml(canBook = true) {
   const tilstand = model.viewState.bookingPage;
   const soketekst = (tilstand.searchForm.input || "").trim().toLowerCase();
   const kategorifilter = tilstand.setFilter.filter;
@@ -127,7 +141,7 @@ function lagUtstyrsSokeresultaterHtml() {
                         <div style="font-size: 0.8rem; color: #64748b;">${status}</div>
                       </div>
                       ${
-                        element.reservable && erTilgjengelig
+                        element.reservable && erTilgjengelig && canBook
                           ? /*HTML*/ `
                               <button 
                                 class="wide-button" 
@@ -150,4 +164,3 @@ function lagUtstyrsSokeresultaterHtml() {
 
   return html;
 }
-

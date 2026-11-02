@@ -83,13 +83,15 @@ function createEndTimeOptions(startTime, selectedEndTime) {
 
 function confirmEquipmentBooking() {
   const state = model.viewState.bookingPage;
+  const userId = model.app.loggedInUserId;
 
-  console.log("--- DEBUGGING BOOKING STATE ---");
-  console.log("selectedEquipmentId:", state.selectedEquipmentId);
-  console.log("selectedDate:", state.selectedDate);
-  console.log("selectedStartTime:", state.selectedStartTime);
-  console.log("selectedEndTime:", state.selectedEndTime);
-  console.log("-------------------------------");
+  // Final rights check guard
+  if (!checkUserRights(userId)) {
+    console.warn(
+      "Booking aborted: User does not have rights or already has an active booking.",
+    );
+    return;
+  }
 
   if (
     state.selectedEquipmentId === null ||
@@ -118,7 +120,7 @@ function confirmEquipmentBooking() {
 
   const newBooking = {
     bookingId: newBookingId,
-    userId: model.app.loggedInUserId,
+    userId: userId,
     equipmentId: state.selectedEquipmentId,
     date: state.selectedDate,
     startTime: state.selectedStartTime,
@@ -127,6 +129,12 @@ function confirmEquipmentBooking() {
   };
 
   model.equipmentBookings.push(newBooking);
+
+  // Mark the user as having an active booking
+  const loggedInUser = model.users.find((u) => u.userId === userId);
+  if (loggedInUser) {
+    loggedInUser.activeBooking = true;
+  }
 
   let calendarEntry = model.calender.find((c) => c.date === state.selectedDate);
   if (calendarEntry) {
@@ -187,16 +195,6 @@ function timeToMinutes(timeStr) {
   if (!timeStr) return 0;
   const [hours, minutes] = timeStr.split(".").map(Number);
   return hours * 60 + minutes;
-}
-
-function addOneHour(timeStr) {
-  if (!timeStr) return "";
-  const [hours, minutes] = timeStr.split(".").map(Number);
-  let totalMinutes = hours * 60 + minutes + 60;
-  if (totalMinutes > 24 * 60) totalMinutes = 24 * 60;
-  const newHours = Math.floor(totalMinutes / 60);
-  const newMins = totalMinutes % 60;
-  return `${String(newHours).padStart(2, "0")}.${String(newMins).padStart(2, "0")}`;
 }
 
 function createEndTimeOptions(startTime, selectedEndTime) {
@@ -260,6 +258,9 @@ function lagArrangementerHtml() {
         ? arrangement.signups.length
         : 0;
 
+      const startTid = arrangement.startTime || "Ikke oppgitt";
+      const sluttTid = arrangement.endTime || "Ikke oppgitt";
+
       return /*HTML*/ `
         <div class="reservation-row">
           <button
@@ -269,7 +270,7 @@ function lagArrangementerHtml() {
             ${unnslippBookingHtml(arrangement.title)}
           </button>
           <span>Dato: ${unnslippBookingHtml(formatDate(arrangement.startDate))}</span>
-          <span>Tid: ${unnslippBookingHtml(arrangement.startTime || "Ikke oppgitt")} - ${unnslippBookingHtml(arrangement.endTime || "Ikke oppgitt")}</span>
+          <span>Tid: ${unnslippBookingHtml(startTid)} - ${unnslippBookingHtml(sluttTid)}</span>
           ${
             arrangement.description
               ? `<span>${unnslippBookingHtml(arrangement.description)}</span>`
