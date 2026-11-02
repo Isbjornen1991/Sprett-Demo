@@ -17,7 +17,17 @@ function createUserNavHtml() {
   const tabs = [
     //Legg til sidene her også for å få riktig tav navigation til å vises
     { pages: ["loggedInPage"], text: "Hjem" },
-    { pages: ["bookingPage"], text: "Booking" },
+    {
+      pages: [
+        "bookingHomePage",
+        "equipmentBooking",
+        "arrangementerSide",
+        "eventDetailsPage",
+        "userChooseBookingDate",
+        "userBookingOverview",
+      ],
+      text: "Booking",
+    },
     { pages: ["userBulletinBoard"], text: "Oppslag" },
     { pages: ["userWebstore"], text: "Nettbutikk" },
     {

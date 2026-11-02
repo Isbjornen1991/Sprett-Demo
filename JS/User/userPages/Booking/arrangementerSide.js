@@ -2,22 +2,24 @@ function tegnArrangementerSide() {
   const arrangementer = model.events.filter(
     (arrangement) => !arrangement.isArchived,
   );
+
   const arrangementerHtml =
     arrangementer.length === 0
       ? "<p>Ingen arrangementer er lagt ut.</p>"
       : arrangementer
           .map(
             (arrangement) => /*HTML*/ `
-              <button
-                class="reservation-row"
-                style="width: 100%; text-align: left; cursor: pointer; background: #ffffff;"
-                onclick="model.app.valgtArrangementId = '${arrangement.id}'; navigateTo('eventDetailsPage')"
-              >
+              <div class="reservation-row">
                 <strong>${unnslippBookingHtml(arrangement.title || "Arrangement")}</strong>
                 <span>Dato: ${unnslippBookingHtml(formatDate(arrangement.startDate))}</span>
                 <span>Tid: ${unnslippBookingHtml(arrangement.startTime || "Ikke oppgitt")}</span>
-                <span style="font-weight: bold; margin-top: 6px;">Meld deg på</span>
-              </button>
+                <button
+                  class="wide-button"
+                  onclick="model.app.valgtArrangementId = '${arrangement.id}'; navigateTo('eventDetailsPage')"
+                >
+                  Se detaljer og meld på
+                </button>
+              </div>
             `,
           )
           .join("");

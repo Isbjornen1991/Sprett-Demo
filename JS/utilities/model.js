@@ -1,7 +1,7 @@
 const model = {
   app: {
-    currentPage: "startPage",
-    loggedInUserId: null,
+    currentPage: "bookingOverview",
+    loggedInUserId: 1,
   },
 
   viewState: {
