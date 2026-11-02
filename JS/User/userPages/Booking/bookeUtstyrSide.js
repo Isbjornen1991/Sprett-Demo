@@ -4,7 +4,9 @@ function tegnBookeUtstyrSide() {
     .map(
       (kategori) => /*HTML*/ `
         <option value="${kategori.id}" ${
-          String(tilstand.setFilter.filter) === String(kategori.id) ? "selected" : ""
+          String(tilstand.setFilter.filter) === String(kategori.id)
+            ? "selected"
+            : ""
         }>
           ${unnslippUtstyrHtml(kategori.name)}
         </option>
@@ -15,36 +17,48 @@ function tegnBookeUtstyrSide() {
   const innhold = /*HTML*/ `
     <section class="info-box">
       <h3>Book Utstyr</h3>
-      <label style="display: flex; flex-direction: column; gap: 6px;">
-        Søk etter utstyr
-        <input
-          type="search"
-          placeholder="Skriv inn navn på utstyr"
-          value="${unnslippUtstyrHtml(tilstand.searchForm.input || "")}"
-          oninput="model.viewState.bookingPage.searchForm.input = this.value"
-        >
-      </label>
+      <form onsubmit="event.preventDefault(); updateView();" style="display: flex; flex-direction: column; gap: 12px; margin: 0;">
+        <label style="display: flex; flex-direction: column; gap: 6px;">
+          Søk etter utstyr
+          <input
+            type="search"
+            placeholder="Skriv inn navn på utstyr"
+            value="${unnslippUtstyrHtml(tilstand.searchForm.input || "")}"
+            oninput="model.viewState.bookingPage.searchForm.input = this.value"
+          >
+        </label>
 
-      <label style="display: flex; flex-direction: column; gap: 6px; margin-top: 12px;">
-        Sett filter
-        <select onchange="model.viewState.bookingPage.setFilter.filter = this.value; updateView()">
-          <option value="" ${
-            tilstand.setFilter.filter === null || tilstand.setFilter.filter === ""
-              ? "selected"
-              : ""
-          }>Alle typer</option>
-          ${kategorier}
-        </select>
-      </label>
+        <label style="display: flex; flex-direction: column; gap: 6px;">
+          Sett filter
+          <select onchange="model.viewState.bookingPage.setFilter.filter = this.value; updateView()">
+            <option value="" ${
+              tilstand.setFilter.filter === null ||
+              tilstand.setFilter.filter === ""
+                ? "selected"
+                : ""
+            }>Alle typer</option>
+            ${kategorier}
+          </select>
+        </label>
 
-      <button class="wide-button" style="margin: 12px 0 0 0; width: 100%;" onclick="updateView()">
-        Søk
-      </button>
+        <button type="submit" class="wide-button" style="margin: 0;">
+          Søk
+        </button>
+      </form>
     </section>
 
     <section class="info-box">
       <h3>Utstyr</h3>
       ${lagUtstyrsSokeresultaterHtml()}
+      ${
+        tilstand.selectedEquipmentId !== null
+          ? /*HTML*/ `
+              <button class="wide-button" style="margin-top: 16px;" onclick="navigateTo('userChooseBookingDate')">
+                Gå videre til dato
+              </button>
+            `
+          : ""
+      }
     </section>
   `;
 
@@ -55,12 +69,16 @@ function lagUtstyrsSokeresultaterHtml() {
   const tilstand = model.viewState.bookingPage;
   const soketekst = (tilstand.searchForm.input || "").trim().toLowerCase();
   const kategorifilter = tilstand.setFilter.filter;
+
   const utstyr = model.equipment.filter((element) => {
     const passerSok = element.name.toLowerCase().includes(soketekst);
+    const elementCategories = Array.isArray(element.category)
+      ? element.category
+      : [element.category];
     const passerKategori =
       kategorifilter === null ||
       kategorifilter === "" ||
-      element.category.some(
+      elementCategories.some(
         (kategoriId) => String(kategoriId) === String(kategorifilter),
       );
     return passerSok && passerKategori;
@@ -79,52 +97,62 @@ function lagUtstyrsSokeresultaterHtml() {
         );
 
   for (const kategori of valgteKategorier) {
-    const elementer = utstyr.filter((element) =>
-      element.category.some(
+    const elementer = utstyr.filter((element) => {
+      const elementCategories = Array.isArray(element.category)
+        ? element.category
+        : [element.category];
+      return elementCategories.some(
         (kategoriId) => String(kategoriId) === String(kategori.id),
-      ),
-    );
-    const tilgjengeligeAntall = elementer.filter(erUtstyrTilgjengeligIDag).length;
+      );
+    });
+
+    const tilgjengeligeAntall = elementer.filter(
+      erUtstyrTilgjengeligIDag,
+    ).length;
+
     html += /*HTML*/ `
-      <div style="border: 2px solid #000000; border-radius: 10px; padding: 12px; margin-bottom: 10px;">
-        <h4 style="margin: 0 0 8px 0;">${unnslippUtstyrHtml(kategori.name)}</h4>
-        <p style="margin: 0 0 8px 0;">Antall tilgjengelige: ${tilgjengeligeAntall}</p>
+      <div class="reservation-row" style="margin-bottom: 10px;">
+        <h4 style="margin: 0 0 8px 0; font-size: 0.95rem; font-weight: 600; color: #0f172a;">${unnslippUtstyrHtml(kategori.name)}</h4>
+        <p style="margin: 0 0 8px 0; color: #64748b;">Antall tilgjengelige: ${tilgjengeligeAntall}</p>
         ${
           elementer.length === 0
             ? "<p>Ingen utstyr i denne kategorien passer søket.</p>"
             : elementer
                 .map((element) => {
+                  const erTilgjengelig = erUtstyrTilgjengeligIDag(element);
                   const status = !element.reservable
                     ? "Kan ikke reserveres"
-                    : erUtstyrTilgjengeligIDag(element)
+                    : erTilgjengelig
                       ? "Tilgjengelig"
                       : "Allerede booket i dag";
-                  return `<p style="margin: 4px 0;">${unnslippUtstyrHtml(element.name)} - ${status}</p>`;
+
+                  const isSelected =
+                    tilstand.selectedEquipmentId === element.id;
+
+                  return /*HTML*/ `
+                    <div style="padding: 8px 0; border-bottom: 1px solid #f1f5f9; display: flex; justify-content: space-between; align-items: center;">
+                      <div>
+                        <span style="font-weight: 500;">${unnslippUtstyrHtml(element.name)}</span>
+                        <div style="font-size: 0.8rem; color: #64748b;">${status}</div>
+                      </div>
+                      ${
+                        element.reservable && erTilgjengelig
+                          ? /*HTML*/ `
+                              <button 
+                                class="wide-button" 
+                                style="width: auto; margin: 0; padding: 6px 12px; font-size: 0.8rem; ${isSelected ? "background: #10b981;" : ""}" 
+                                onclick="model.viewState.bookingPage.selectedEquipmentId = ${element.id}; updateView();"
+                              >
+                                ${isSelected ? "Valgt ✓" : "Velg"}
+                              </button>
+                            `
+                          : ""
+                      }
+                    </div>
+                  `;
                 })
                 .join("")
         }
-      </div>
-    `;
-  }
-
-  const ukategorisertUtstyr = utstyr.filter(
-    (element) => element.category.length === 0,
-  );
-  if (ukategorisertUtstyr.length > 0 && !kategorifilter) {
-    html += /*HTML*/ `
-      <div style="border: 2px solid #000000; border-radius: 10px; padding: 12px; margin-bottom: 10px;">
-        <h4 style="margin: 0 0 8px 0;">Annet utstyr</h4>
-        <p style="margin: 0 0 8px 0;">Antall tilgjengelige: ${ukategorisertUtstyr.filter(erUtstyrTilgjengeligIDag).length}</p>
-        ${ukategorisertUtstyr
-          .map((element) => {
-            const status = !element.reservable
-              ? "Kan ikke reserveres"
-              : erUtstyrTilgjengeligIDag(element)
-                ? "Tilgjengelig"
-                : "Allerede booket i dag";
-            return `<p style="margin: 4px 0;">${unnslippUtstyrHtml(element.name)} - ${status}</p>`;
-          })
-          .join("")}
       </div>
     `;
   }
