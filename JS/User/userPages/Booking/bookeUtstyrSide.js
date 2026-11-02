@@ -50,15 +50,6 @@ function tegnBookeUtstyrSide() {
     <section class="info-box">
       <h3>Utstyr</h3>
       ${lagUtstyrsSokeresultaterHtml()}
-      ${
-        tilstand.selectedEquipmentId !== null
-          ? /*HTML*/ `
-              <button class="wide-button" style="margin-top: 16px;" onclick="navigateTo('userChooseBookingDate')">
-                Gå videre til dato
-              </button>
-            `
-          : ""
-      }
     </section>
   `;
 
@@ -140,10 +131,10 @@ function lagUtstyrsSokeresultaterHtml() {
                           ? /*HTML*/ `
                               <button 
                                 class="wide-button" 
-                                style="width: auto; margin: 0; padding: 6px 12px; font-size: 0.8rem; ${isSelected ? "background: #10b981;" : ""}" 
-                                onclick="model.viewState.bookingPage.selectedEquipmentId = ${element.id}; updateView();"
+                                style="width: auto; margin: 0; padding: 6px 12px; font-size: 0.8rem; background: #10b981;" 
+                                onclick="model.viewState.bookingPage.selectedEquipmentId = ${element.id}; navigateTo('userChooseBookingDate');"
                               >
-                                ${isSelected ? "Valgt ✓" : "Velg"}
+                                Velg og gå videre
                               </button>
                             `
                           : ""
@@ -160,33 +151,3 @@ function lagUtstyrsSokeresultaterHtml() {
   return html;
 }
 
-function erUtstyrTilgjengeligIDag(element) {
-  if (!element.reservable) return false;
-
-  const dagensDato = new Date();
-  const dagensDatoTekst = [
-    dagensDato.getFullYear(),
-    String(dagensDato.getMonth() + 1).padStart(2, "0"),
-    String(dagensDato.getDate()).padStart(2, "0"),
-  ].join("-");
-
-  return !model.equipmentBookings.some(
-    (bestilling) =>
-      bestilling.equipmentId === element.id &&
-      bestilling.date === dagensDatoTekst &&
-      bestilling.approved !== false,
-  );
-}
-
-function unnslippUtstyrHtml(verdi) {
-  return String(verdi ?? "").replace(/[&<>"']/g, (tegn) => {
-    const htmlEntiteter = {
-      "&": "&amp;",
-      "<": "&lt;",
-      ">": "&gt;",
-      '"': "&quot;",
-      "'": "&#39;",
-    };
-    return htmlEntiteter[tegn];
-  });
-}

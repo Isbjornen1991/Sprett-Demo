@@ -1,51 +1,50 @@
-function drawBookingOverviewScreen(){
-    const loggedInUser = model.users.find(user => user.userId === model.app.loggedInUserId);
-    const usernameToShow = loggedInUser ? loggedInUser.username : "kunde";
+function drawBookingOverviewScreen() {
+  const userBookings = model.equipmentBookings.filter(
+    (booking) =>
+      booking.userId === model.app.loggedInUserId && booking.approved !== false,
+  );
 
-    let html = /*HTML*/`
-    <div class="userLayout">
-    
-    
-<div class="front-header">
-    <div class="profile-picture">
-    <h1>Sprett</h1>
-    <p>Velkommen, ${usernameToShow}!</p>
-    <p>Sal medlem</p>
-</div>
+  const bookingsHtml =
+    userBookings.length === 0
+      ? "<p>Du har ingen aktive reservasjoner.</p>"
+      : userBookings
+          .map((booking) => {
+            const equipment = model.equipment.find(
+              (e) => e.id === booking.equipmentId,
+            );
+            const equipmentName = equipment ? equipment.name : "Ukjent utstyr";
+            return /*HTML*/ `
+                <div style="padding: 8px 0; border-bottom: 1px solid #f1f5f9; display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <strong style="font-weight: 500; color: #0f172a;">${unnslippBookingHtml(equipmentName)}</strong>
+                        <div style="font-size: 0.85rem; color: #64748b;">Dato: ${formatDate(booking.date)} | Kl. ${booking.startTime} - ${booking.endTime}</div>
+                    </div>
+                </div>
+            `;
+          })
+          .join("");
 
-<div class="user.nav">
-    <button onclick="navigateTo('loggedInPage')">Hjem</button>
-    <button class="selected" onclick="navigateTo('bookingPage')">Booking</button>
-    <button onclick="navigateTo('bulletinPage')">Oppslag</button>
-    <button onclick="navigateTo('profilePage')">profil</button>
-</div>
+  let html = /*HTML*/ `
+        <button class="wide-button" onclick="navigateTo('bookingHomePage')">
+             Tilbake til Booking
+        </button>
 
-    <div class="userContentArea">
+        <div class="userContentArea">
+            <div class="info-box">
+                <h3>Dine nåværende reservasjoner</h3>
+                <div class="reservation-row" style="display: flex; flex-direction: column; gap: 8px;">
+                    ${bookingsHtml}
+                </div>
+            </div>
 
-    <div class="info-box">
-    <h3>Din nåværende Reservasjoner</h3>
-    
-    <div class="reservation-row">
-        her kommer en booking...
-    </div>
-</div>
-
-<div class="info-box">
-<h3>Din nåværende påmeldinger</h3>
-    <div class="reservation-row">
-    Her kommer en påmelding
-    </div>
-</div>
-    
-
-
+            <div class="info-box">
+                <h3>Dine nåværende påmeldinger</h3>
+                <div class="reservation-row">
+                    ${lagDinePameldingerHtml()}
+                </div>
+            </div>
         </div>
-    </div>
     `;
-    
-    return html;
-}
-    
-    
-    
 
+  return drawUserShell(html);
+}

@@ -1,7 +1,7 @@
 const model = {
   app: {
-    currentPage: "bookingOverview",
-    loggedInUserId: 1,
+    currentPage: "startPage",
+    loggedInUserId: null,
   },
 
   viewState: {
@@ -63,6 +63,9 @@ const model = {
 
     bookingPage: {
       selectedEquipmentId: null,
+      selectedDate: null, // "YYYY-MM-DD"
+      selectedStartTime: null, // e.g. "13.00"
+      selectedEndTime: null, // e.g. "13.30"
       registerBookingForm: {
         input: null,
       },
@@ -214,7 +217,7 @@ const model = {
       name: "Manualer 10 kg",
       id: 0,
       category: [0],
-      reservable: false,
+      reservable: true,
     },
     {
       name: "Manualer 15 kg",
@@ -451,7 +454,13 @@ const model = {
     {
       templateId: 1,
       name: "Overkropp",
-      exercises: ["Benkpress", "Skråbenk", "Nedtrekk", "Skulderpress", "Bicepscurl"],
+      exercises: [
+        "Benkpress",
+        "Skråbenk",
+        "Nedtrekk",
+        "Skulderpress",
+        "Bicepscurl",
+      ],
     },
     {
       templateId: 2,
@@ -478,7 +487,7 @@ const model = {
       bookingId: 0,
       userId: 1,
       equipmentId: 0,
-      date: "2026-10-15",
+      date: "2026-12-15",
       startTime: "13.00",
       endTime: "13.30",
       approved: true,

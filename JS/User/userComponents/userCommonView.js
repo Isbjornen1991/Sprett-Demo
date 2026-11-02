@@ -4,7 +4,7 @@ function createNotLoggedInHeaderHtml(){
         <div class="logo-circle"></div>
         <h1>Sprett</h1>
         <p>Velkommen, Kunde!</p>
-        <p onclick="goToNewUserPage()" class="link-text">Bli medlem!</p>
+        <p onclick="navigateTo('newUserRegistration')" class="link-text">Bli medlem!</p>
     </header>
    
     `;
