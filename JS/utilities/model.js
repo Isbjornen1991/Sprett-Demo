@@ -62,6 +62,7 @@ const model = {
     },
 
     bookingPage: {
+      selectedEquipmentId: null,
       registerBookingForm: {
         input: null,
       },
@@ -169,6 +170,20 @@ const model = {
     userFeedbackPage: {
       feedbackText: "",
       message: "",
+    },
+
+    userTrainingProgramPage: {
+      programName: "",
+      exercises: [],
+      selectedProgramId: null,
+      message: "",
+    },
+
+    adminTrainingTemplatePage: {
+      templateName: "",
+      exercises: [],
+      newExerciseName: "",
+      editingTemplateId: null,
     },
   },
 
@@ -426,6 +441,26 @@ const model = {
       ],
     },
   ],
+
+  trainingTemplates: [
+    {
+      templateId: 0,
+      name: "Helkropp nybegynner",
+      exercises: ["Knebøy", "Benkpress", "Markløft", "Roing", "Planke"],
+    },
+    {
+      templateId: 1,
+      name: "Overkropp",
+      exercises: ["Benkpress", "Skråbenk", "Nedtrekk", "Skulderpress", "Bicepscurl"],
+    },
+    {
+      templateId: 2,
+      name: "Underkropp",
+      exercises: ["Knebøy", "Utfall", "Beinpress", "Leggcurl", "Tåhev"],
+    },
+  ],
+
+  trainingPrograms: [],
 
   //------------------------------------------------------------------------
   //                        Events & Calender
