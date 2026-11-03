@@ -15,6 +15,10 @@ function toggleArchiveBulletin(bulletinId) {
 }
 
 function deleteComment(bulletinId, commentId) {
+  if (!confirm("Er du sikker på at du vil slette denne kommentaren?")) {
+    return;
+  }
+
   const bulletin = model.bulletins.find((b) => b.bulletinId === bulletinId);
   if (bulletin && bulletin.comments) {
     const commentIndex = bulletin.comments.findIndex(
