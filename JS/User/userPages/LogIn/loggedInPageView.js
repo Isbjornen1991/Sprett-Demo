@@ -34,7 +34,7 @@ function updateViewLoggedInPage() {
 function createReservationsHtml() {
   cleanBookings();
   const currentUser = model.users.find(
-    
+
     (user) => user.userId === model.app.loggedInUserId,
   );
 
