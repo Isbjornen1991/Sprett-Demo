@@ -94,7 +94,7 @@ const model = {
 
     bulletinPage: {
       inputComment: "",
-      selectedBulletinId: null, //
+      selectedBulletinId: null, 
       selectedEventId: null,
     },
 
@@ -212,6 +212,29 @@ const model = {
     },
   ],
 
+  equipmentCategories: [
+    {
+      id: 0,
+      name: "Frie vekter",
+    },
+    {
+      id: 1,
+      name: "Styrke og stativer",
+    },
+    {
+      id: 2,
+      name: "Kardio",
+    },
+    {
+      id: 3,
+      name: "Matte og bevegelighet",
+    },
+    {
+      id: 4,
+      name: "Kampsport og funksjonell",
+    },
+  ],
+
   equipment: [
     {
       name: "Manualer 10 kg",
@@ -225,12 +248,35 @@ const model = {
       category: [0],
       reservable: false,
     },
-  ],
-
-  equipmentCategories: [
     {
-      id: 0,
-      name: "Vekter",
+      name: "Olympisk Vektstang 20 kg",
+      id: 2,
+      category: [0],
+      reservable: true,
+    },
+    {
+      name: "Kettlebell 16 kg",
+      id: 3,
+      category: [0],
+      reservable: true,
+    },
+    {
+      name: "Justerbar Treningsbenk",
+      id: 4,
+      category: [1],
+      reservable: true,
+    },
+    {
+      name: "Knebøyrack / Power Cage",
+      id: 5,
+      category: [1],
+      reservable: true,
+    },
+    {
+      name: "Romaskin (Concept2)",
+      id: 6,
+      category: [2],
+      reservable: true,
     },
   ],
 
@@ -394,12 +440,12 @@ const model = {
 
   bulletins: [
     {
-      title: "Example Info",
+      title: "Nytt utstyr på plass i styrkeavdelingen!",
       type: "info",
       description:
-        "This is dummy text for testing purposes.Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?",
-      startDate: "",
-      endDate: "",
+        "Vi har nå fått inn et splitter nytt sett med olympiske vektstenger og nye gummierte vektskiver fra Eleiko. Vi minner om å rydde vekk vektene etter deg når du er ferdig med økta slik at det er ryddig og klart for neste mann.",
+      startDate: "2026-11-01",
+      endDate: "2026-11-15",
       startTime: "",
       endTime: "",
       bulletinId: 0,
@@ -409,37 +455,37 @@ const model = {
         {
           commentId: 0,
           userId: 1,
-          text: "This is an example comment.",
+          text: "Fantastisk! De nye stengene har et utrolig bra grep.",
         },
         {
           commentId: 1,
           userId: 2,
-          text: "This is another comment! Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+          text: "Helt enig. Veldig kjekt med nytt utstyr på plass.",
         },
       ],
     },
     {
-      title: "Example Info",
+      title: "Endrede åpningstider i helgen",
       type: "info",
       description:
-        "This is dummy text for testing purposes.Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?",
-      startDate: "",
-      endDate: "",
-      startTime: "",
-      endTime: "",
+        "På grunn av vedlikehold og gulvvask i storsalen vil treningssenteret ha reduserte åpningstider kommende lørdag og søndag. Senteret åpner kl. 10:00 og stenger kl. 18:00 begge dager. Nøkkelkorttilgang fungerer som normalt i tidsrommet.",
+      startDate: "2026-11-05",
+      endDate: "2026-11-08",
+      startTime: "10:00",
+      endTime: "18:00",
       bulletinId: 1,
       isPublished: true,
       isArchived: false,
       comments: [
         {
           commentId: 0,
-          userId: 1,
-          text: "This is an example comment.",
+          userId: 3,
+          text: "Takk for info! Fint å vite før jeg planlegger morgendagen.",
         },
         {
           commentId: 1,
-          userId: 2,
-          text: "This is another comment! Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+          userId: 1,
+          text: "Gjelder dette også morgenyogaen på søndag?",
         },
       ],
     },
@@ -497,16 +543,48 @@ const model = {
   events: [
     {
       id: 0,
-      title: "Example Event Title",
-      description: "Example Event Text",
-      startDate: "",
-      endDate: "",
-      startTime: "",
-      endTime: "",
+      title: "Intensiv Sirkeltrening & Core",
+      description:
+        "En variert og utfordrende økt med fokus på utholdenhet, styrke og kjernemuskulatur. Passer for alle nivåer, da øvelsene enkelt kan skreddersys til eget tempo.",
+      startDate: "2026-11-10",
+      endDate: "2026-11-10",
+      startTime: "18:00",
+      endTime: "19:00",
       reservedRoom: [0],
+      signups: [
+        { userId: 1, approved: true },
+        { userId: 2, approved: false },
+      ],
+      isArchived: false,
+      maxParticipants: 15,
+    },
+    {
+      id: 1,
+      title: "Kveldsyoga & Restitusjon",
+      description:
+        "Rolig yogatime med fokus på dyptgående tøyning, bevegelighet og pusteteknikk. Perfekt for å løse opp i spenninger og restituere etter en tung uke.",
+      startDate: "2026-11-12",
+      endDate: "2026-11-12",
+      startTime: "19:30",
+      endTime: "20:30",
+      reservedRoom: [1],
       signups: [{ userId: 1, approved: true }],
       isArchived: false,
-      maxParticipants: null,
+      maxParticipants: 12,
+    },
+    {
+      id: 2,
+      title: "Workshop: Lær Riktig Løfteteknikk",
+      description:
+        "En praktisk gjennomgang av teknikk i benkpress, knebøy og markløft. Vi går gjennom skadeforebygging, stangbane og optimal oppvarming.",
+      startDate: "2026-11-15",
+      endDate: "2026-11-15",
+      startTime: "12:00",
+      endTime: "14:00",
+      reservedRoom: [0],
+      signups: [],
+      isArchived: false,
+      maxParticipants: 8,
     },
   ],
 
@@ -543,8 +621,97 @@ const model = {
       productName: "Proteinbar",
       productProducer: "Arla",
       productPrice: 19.9,
-      productDescription: "Manglende Beskrivelse",
+      productDescription: "Proteinbar fra Arla",
       productQuantity: 20,
+      hasDiscount: false,
+    },
+    {
+      productId: 1,
+      productName: "Whey Protein 1kg",
+      productProducer: "Star Nutrition",
+      productPrice: 349.0,
+      productDescription:
+        "Høykvalitets myseproteinpulver for rask muskelrestitusjon etter trening.",
+      productQuantity: 15,
+      hasDiscount: true,
+    },
+    {
+      productId: 2,
+      productName: "BCAA Energy Drink",
+      productProducer: "NOCCO",
+      productPrice: 32.5,
+      productDescription:
+        "Forfriskende BCAAmiks med koffein for ekstra energi og fokus.",
+      productQuantity: 48,
+      hasDiscount: false,
+    },
+    {
+      productId: 3,
+      productName: "Shaker Cup 600ml",
+      productProducer: "BlenderBottle",
+      productPrice: 89.0,
+      productDescription: "Lekkasjefri shaker med blandekule i rustfritt stål.",
+      productQuantity: 30,
+      hasDiscount: false,
+    },
+    {
+      productId: 4,
+      productName: "Kreatin Monohydrat 500g",
+      productProducer: "Optimum Nutrition",
+      productPrice: 249.0,
+      productDescription:
+        "Ren mikronisert kreatin for økt styrke og eksplosivitet.",
+      productQuantity: 12,
+      hasDiscount: true,
+    },
+    {
+      productId: 5,
+      productName: "Løftestropper i Skinn",
+      productProducer: "GripPower",
+      productPrice: 159.0,
+      productDescription:
+        "Slitesterke stropper for tyngre markløft og roøvelser.",
+      productQuantity: 8,
+      hasDiscount: false,
+    },
+    {
+      productId: 6,
+      productName: "Treningshåndkle Mikrofiber",
+      productProducer: "Casall",
+      productPrice: 129.0,
+      productDescription:
+        "Hurtigtørkende og kompakt håndkle som tar minimal plass i baggen.",
+      productQuantity: 25,
+      hasDiscount: false,
+    },
+    {
+      productId: 7,
+      productName: "Magnesiumkalk (Liquid Chalk)",
+      productProducer: "Penta",
+      productPrice: 99.0,
+      productDescription:
+        "Flytende kalk som gir optimalt grep uten å støvende ned hele salen.",
+      productQuantity: 18,
+      hasDiscount: false,
+    },
+    {
+      productId: 8,
+      productName: "Elektrolytt-tabletter",
+      productProducer: "High5",
+      productPrice: 79.0,
+      productDescription:
+        "Brusetabletter med essensielle mineraler for væskebalanse under økta.",
+      productQuantity: 35,
+      hasDiscount: true,
+    },
+    {
+      productId: 9,
+      productName: "Motstandsstrikk (Heavy)",
+      productProducer: "Abilica",
+      productPrice: 199.0,
+      productDescription:
+        "Kraftig gummistrikk for oppvarming, mobilitet og styrketrening.",
+      productQuantity: 10,
       hasDiscount: false,
     },
   ],

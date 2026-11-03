@@ -204,7 +204,7 @@ function drawUserBulletinsList() {
                 placeholder="Skriv en kommentar..."
                 oninput="model.viewState.bulletinPage.inputComment = this.value"
               >${model.viewState.bulletinPage.inputComment || ""}</textarea>
-              <button class="wide-button" onclick="addComment(${bulletin.bulletinId})" style="margin: 0; width: 100%;">Post comment</button>
+              <button class="wide-button" onclick="addComment(${bulletin.bulletinId})" style="margin: 0; width: 100%;">Legg til Kommentar...</button>
             </div>
           </div>
         `

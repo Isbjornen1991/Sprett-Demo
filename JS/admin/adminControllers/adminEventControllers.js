@@ -198,3 +198,46 @@ function getRoomName(roomIds) {
 
   return "Ingen sal";
 }
+
+function generateCalendarEntries() {
+  model.calender = model.calender || [];
+
+  for (const event of model.events) {
+    if (event.isArchived || !event.startDate) continue;
+
+    let dayEntry = model.calender.find((c) => c.date === event.startDate);
+
+    if (dayEntry) {
+      if (!dayEntry.eventIds.includes(event.id)) {
+        dayEntry.eventIds.push(event.id);
+      }
+    } else {
+      model.calender.push({
+        date: event.startDate,
+        eventIds: [event.id],
+        equipBookings: [],
+      });
+    }
+  }
+
+  for (const booking of model.equipmentBookings) {
+    if (!booking.date) continue;
+
+    let dayEntry = model.calender.find((c) => c.date === booking.date);
+
+    if (dayEntry) {
+      if (!dayEntry.equipBookings.includes(booking.bookingId)) {
+        dayEntry.equipBookings.push(booking.bookingId);
+      }
+    } else {
+      model.calender.push({
+        date: booking.date,
+        eventIds: [],
+        equipBookings: [booking.bookingId],
+      });
+    }
+  }
+
+  // Optional: Sort calendar chronologically by date
+  model.calender.sort((a, b) => new Date(a.date) - new Date(b.date));
+}
