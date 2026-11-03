@@ -236,8 +236,10 @@ function lagDinePameldingerHtml() {
       (arrangement) => /*HTML*/ `
         <div class="reservation-row">
           <strong>${unnslippBookingHtml(arrangement.title)}</strong>
-          <span>Dato: ${unnslippBookingHtml(formatDate(arrangement.startDate))}</span>
-          <span>Tid: ${unnslippBookingHtml(arrangement.startTime || "Ikke oppgitt")}</span>
+          <span>Start: ${unnslippBookingHtml(formatDate(arrangement.startDate))}</span>
+          <span>Slutt: ${unnslippBookingHtml(formatDate(arrangement.endDateDate))}</span>
+          <span>Fra kl: ${unnslippBookingHtml(arrangement.startTime || "Ikke oppgitt")}</span>
+          <span>Fra kl: ${unnslippBookingHtml(arrangement.endTime || "Ikke oppgitt")}</span>
         </div>
       `,
     )

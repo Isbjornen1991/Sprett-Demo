@@ -94,7 +94,7 @@ const model = {
 
     bulletinPage: {
       inputComment: "",
-      selectedBulletinId: null, 
+      selectedBulletinId: null,
       selectedEventId: null,
     },
 
@@ -563,8 +563,8 @@ const model = {
       title: "Kveldsyoga & Restitusjon",
       description:
         "Rolig yogatime med fokus på dyptgående tøyning, bevegelighet og pusteteknikk. Perfekt for å løse opp i spenninger og restituere etter en tung uke.",
-      startDate: "2026-11-12",
-      endDate: "2026-11-12",
+      startDate: "2026-03-03",
+      endDate: "2026-03-03",
       startTime: "19:30",
       endTime: "20:30",
       reservedRoom: [1],

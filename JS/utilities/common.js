@@ -93,9 +93,16 @@ function cleanBookings() {
 }
 
 function isEventPast(event) {
-  const date = event.endDate || event.startDate;
-  if (!date) return false;
+  const dateStr = event.endDate || event.startDate;
+  if (!dateStr) return false;
 
-  const today = new Date().toISOString().slice(0, 10);
-  return date < today;
+  const eventDate = new Date(dateStr);
+  const today = new Date();
+  today.setHours(0, 0, 0, 0); // Reset time to midnight for accurate comparison
+
+  if (eventDate < today) {
+    return true; // It is in the past
+  }
+  
+  return false; // It is today or in the future
 }
