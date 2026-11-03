@@ -51,7 +51,7 @@ function drawAdminDashboard() {
       <div id="feedbackArea" class="adminCard">
         <h2>Forslagskasse</h2>
         ${drawDashBoardFeedback(3)}
-        <button onclick="navigateTO('adminFeedback')">Se alle</button>
+        <button onclick="navigateTo('adminFeedback')">Se alle</button>
       </div>
     </div>
   `;
