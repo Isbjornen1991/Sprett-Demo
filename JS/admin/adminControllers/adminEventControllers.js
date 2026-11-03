@@ -161,7 +161,7 @@ function getSelectedEvent() {
   const state = model.viewState.adminCalenderPage;
 
   for (const event of model.events) {
-    if (event.id === state.selectedEventId) {
+    if (event.id == state.selectedEventId) {
       return event;
     }
   }

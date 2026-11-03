@@ -1,9 +1,9 @@
 function drawAdminCalender() {
-    const state = model.viewState.adminCalenderPage;
-    cleanBookings();
-    generateCalendarEntries();
+  const state = model.viewState.adminCalenderPage;
+  cleanBookings();
+  generateCalendarEntries();
 
-    const content = /*HTML*/ `
+  const content = /*HTML*/ `
         <div class="adminCard calenderCard">
             <h2>Kalender</h2>
 
@@ -22,13 +22,13 @@ function drawAdminCalender() {
         </div>
     `;
 
-    return drawAdminShell(content);
+  return drawAdminShell(content);
 }
 
 function createEventsTabHtml() {
-    const state = model.viewState.adminCalenderPage;
+  const state = model.viewState.adminCalenderPage;
 
-    return /*HTML*/ `
+  return /*HTML*/ `
         <div class="calenderColumns">
             <div class="calenderDateList">
                 ${createCalenderRowsHtml()}
@@ -42,13 +42,13 @@ function createEventsTabHtml() {
 }
 
 function createCalenderRowsHtml() {
-    const state = model.viewState.adminCalenderPage;
-    let html = "";
+  const state = model.viewState.adminCalenderPage;
+  let html = "";
 
-    for (const day of model.calender) {
-        const isSelected = state.selectedDate === day.date;
+  for (const day of model.calender) {
+    const isSelected = state.selectedDate === day.date;
 
-        html += /*HTML*/ `
+    html += /*HTML*/ `
             <div class="subSection calenderRow ${isSelected ? "selected" : ""}">
                 <button onclick="setCalenderDate('${day.date}')">
                     ${formatDate(day.date)}
@@ -56,36 +56,36 @@ function createCalenderRowsHtml() {
                 ${createDateEventsHtml(day)}
             </div>
         `;
-    }
+  }
 
-    if (html === "") {
-        html = "<p>Ingen datoer i kalenderen.</p>";
-    }
+  if (html === "") {
+    html = "<p>Ingen datoer i kalenderen.</p>";
+  }
 
-    return html;
+  return html;
 }
 
 function createDateEventsHtml(day) {
-    let html = "";
+  let html = "";
 
-    for (const eventId of day.eventIds) {
-        for (const event of model.events) {
-            if (event.id === eventId && !event.isArchived) {
-                html += /*HTML*/ `
-                    <button onclick="selectEvent(${event.id})">${event.title}</button>
+  for (const eventId of day.eventIds) {
+    for (const event of model.events) {
+      if (event.id === eventId && !event.isArchived) {
+        html += /*HTML*/ `
+                    <button onclick="selectEvent('${event.id}')">${event.title}</button>
                 `;
-            }
-        }
+      }
     }
+  }
 
-    return html;
+  return html;
 }
 
-function createEventDetailHtml () {
-    const event = getSelectedEvent();
-    if (event === null) return "";
+function createEventDetailHtml() {
+  const event = getSelectedEvent();
+  if (event == null) return "";
 
-    return /*HTML*/ `
+  return /*HTML*/ `
         <div class="adminCard eventDetail">
             <h2>${event.title}</h2>
             <p>${event.description}</p>
@@ -97,30 +97,30 @@ function createEventDetailHtml () {
 }
 
 function createSignupListHtml() {
-    const event = getSelectedEvent();
-    if (event === null) return "";
+  const event = getSelectedEvent();
+  if (event == null) return "";
 
-    let html = "";
+  let html = "";
 
-    for (const signup of event.signups) {
-        let status = "Avslått";
-        if (signup.approved) {
-            status = "Godkjent";
-        }
+  for (const signup of event.signups) {
+    let status = "Avslått";
+    if (signup.approved) {
+      status = "Godkjent";
+    }
 
-        html += /*HTML*/ `
+    html += /*HTML*/ `
             <div class="subSection signupRow">
                 <span>${getUsername(signup.userId)}</span>
                 <span>${status}</span>
             </div>
         `;
-    }
+  }
 
-    if (html === "") {
-        html = "<p>Ingen påmeldte.</p>";
-    }
+  if (html === "") {
+    html = "<p>Ingen påmeldte.</p>";
+  }
 
-    return /*HTML*/ `
+  return /*HTML*/ `
         <div class="adminCard">
             <h2>Deltagerliste</h2>
             ${html}
@@ -129,21 +129,21 @@ function createSignupListHtml() {
 }
 
 function createEquipmentTabHtml() {
-    let html = "";
+  let html = "";
 
-    for (const booking of model.equipmentBookings) {
-        html += /*HTML*/ `
+  for (const booking of model.equipmentBookings) {
+    html += /*HTML*/ `
             <div class="subSection signupRow">
                 <span>${getEquipmentName(booking.equipmentId)}</span>
                 <span>${getUsername(booking.userId)}</span>
                 <span>${formatDate(booking.date)} ${booking.startTime}-${booking.endTime}</span>
             </div>
         `;
-    }
+  }
 
-    if (html === "") {
-        html = "<p>Ingen utstyrsreservasjoner.</p>";
-    }
+  if (html === "") {
+    html = "<p>Ingen utstyrsreservasjoner.</p>";
+  }
 
-    return html;
+  return html;
 }
