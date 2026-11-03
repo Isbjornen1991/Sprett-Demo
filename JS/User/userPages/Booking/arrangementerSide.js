@@ -1,6 +1,6 @@
 function tegnArrangementerSide() {
   const arrangementer = model.events.filter(
-    (arrangement) => !arrangement.isArchived,
+    (arrangement) => !arrangement.isArchived && !isEventPast(arrangement),
   );
 
   const arrangementerHtml =

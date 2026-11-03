@@ -6,10 +6,15 @@ function saveNewEvent() {
     return;
   }
 
-  const newId =
-    pageState.eventID !== null && pageState.eventID !== undefined
-      ? pageState.eventID
-      : model.events.length;
+  
+  let newId = 0;
+  for (const event of model.events) {
+    if (event.id >= newId) newId = event.id + 1;
+  }
+
+  if (pageState.eventID !== null && pageState.eventID !== undefined) {
+    newId = pageState.eventID;
+  }
 
   const newEvent = {
     id: newId,

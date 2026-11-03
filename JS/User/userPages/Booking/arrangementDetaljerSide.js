@@ -3,7 +3,7 @@ function tegnArrangementDetaljerSide() {
     (element) => String(element.id) === String(model.app.valgtArrangementId),
   );
 
-  if (!arrangement || arrangement.isArchived) {
+  if (!arrangement || arrangement.isArchived || isEventPast(arrangement)) {
     return drawUserShell(/*HTML*/ `
       <section class="info-box">
         <h3>Arrangementer</h3>

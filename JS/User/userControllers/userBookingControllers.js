@@ -222,6 +222,7 @@ function lagDinePameldingerHtml() {
   const pameldinger = model.events.filter(
     (arrangement) =>
       !arrangement.isArchived &&
+      !isEventPast(arrangement) &&
       arrangement.signups &&
       arrangement.signups.some((pamelding) => pamelding.userId === brukerId),
   );
@@ -245,7 +246,7 @@ function lagDinePameldingerHtml() {
 
 function lagArrangementerHtml() {
   const arrangementer = model.events.filter(
-    (arrangement) => !arrangement.isArchived,
+    (arrangement) => !arrangement.isArchived && !isEventPast(arrangement),
   );
 
   if (arrangementer.length === 0) {

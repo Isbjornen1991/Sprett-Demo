@@ -105,6 +105,8 @@ function generateEventDropdown() {
 
   for (let i = 0; i < model.events.length; i++) {
     const event = model.events[i];
+    if (event.isArchived) continue;
+    
     const isSelected =
       String(currentLink) === String(event.id) ? "selected" : "";
     html += `<option value="${event.id}" ${isSelected}>ID: ${event.id} - ${event.title}</option>`;

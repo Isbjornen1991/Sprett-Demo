@@ -91,3 +91,11 @@ function cleanBookings() {
     }
   }
 }
+
+function isEventPast(event) {
+  const date = event.endDate || event.startDate;
+  if (!date) return false;
+
+  const today = new Date().toISOString().slice(0, 10);
+  return date < today;
+}

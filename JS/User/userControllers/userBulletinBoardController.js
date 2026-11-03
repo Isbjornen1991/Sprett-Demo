@@ -216,7 +216,7 @@ function drawUserBulletinsList() {
 
   if (selectedBulletinId === null) {
     html += `<div style="font-weight: bold; font-size: 14px; margin: 16px 0 6px 0;">Arrangementer</div>`;
-    const events = model.events.filter((e) => !e.isArchived);
+    const events = model.events.filter((e) => !e.isArchived && !isEventPast(e));
 
     if (events.length === 0) {
       html += `<p style='font-size: 12px; color: #666; font-style: italic;'>Ingen arrangementer.</p>`;
