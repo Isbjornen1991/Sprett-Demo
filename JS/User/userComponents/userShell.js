@@ -31,7 +31,12 @@ function createUserNavHtml() {
     { pages: ["userBulletinBoard"], text: "Oppslag" },
     { pages: ["userWebstore"], text: "Nettbutikk" },
     {
-      pages: ["userProfileHome", "userEditProfile", "userEditSubscription", "userTrainingProgram"],
+      pages: [
+        "userProfileHome",
+        "userEditProfile",
+        "userEditSubscription",
+        "userTrainingProgram",
+      ],
       text: "Profil",
     },
   ];
@@ -73,6 +78,8 @@ function drawNotLoggedInShell(contentHtml) {
         <h3>Åpningstider</h3>
         <p>Resepsjon: ${model.openingHours.reception.open} - ${model.openingHours.reception.close}</p>
         <p>Gym: ${model.openingHours.gymAccess.open} - ${model.openingHours.gymAccess.close}</p>
+        <h3>Adresse</h3>
+        <p>Torget 3, 3256 Larvik</p>
       </div>
     </div>
   `;

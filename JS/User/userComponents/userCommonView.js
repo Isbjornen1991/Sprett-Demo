@@ -1,5 +1,5 @@
-function createNotLoggedInHeaderHtml(){
-    return /*HTML*/ `
+function createNotLoggedInHeaderHtml() {
+  return /*HTML*/ `
     <header class="front-header">
         <div class="logo-circle"></div>
         <h1>Sprett</h1>
@@ -38,26 +38,31 @@ function createLoggedInHeaderHtml() {
   `;
 }
 
-function createFooterHtml(){
-    return /*HTML*/`
+function createFooterHtml() {
+  return /*HTML*/ `
         <footer class="front-footer">
-            <h3>Adresse</h3>
-            <h3>Åpningstider</h3>
-            <p>
+        <h3>Åpningstider</h3>
+        <p>
                 Resepsjon: ${model.openingHours.reception.open}
                 -
                 ${model.openingHours.reception.close}
             </p>
             <p>
-                Treningssenter: ${model.openingHours.gymAccess.open}
+            Treningssenter: ${model.openingHours.gymAccess.open}
                 -
                 ${model.openingHours.gymAccess.close}
-            </p>
-            ${model.app.loggedInUserId !== null ? /*HTML*/ `
-                <p class="link-text" onclick="navigateTo('userFeedback')">
-                    Har du noen tilbakemeldinger? Trykk her.
                 </p>
-                ` : ""}
-        </footer>
+            ${
+              model.app.loggedInUserId !== null
+                ? /*HTML*/ `
+              <p class="link-text" onclick="navigateTo('userFeedback')">
+              Har du noen tilbakemeldinger? Trykk her.
+              </p>
+              `
+                : ""
+            }
+              <h3>Adresse</h3>
+              <p>Torget 3, 3256 Larvik</p>
+              </footer>
     `;
 }
