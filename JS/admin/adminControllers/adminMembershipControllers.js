@@ -210,17 +210,26 @@ function denyCancellation(userId) {
 }
 
 function generateCodeOfTheDay() {
-  let dailyCode = "";
+  const today = new Date().toISOString().slice(0, 10);
 
+  if (model.codeDate === today && model.codeOfTheDay) {
+    return model.codeOfTheDay;
+  }
+
+  let dailyCode = "";
   var characters =
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
   var charactersLength = characters.length;
+
   for (var i = 0; i < 6; i++) {
     dailyCode += characters.charAt(
       Math.floor(Math.random() * charactersLength),
     );
   }
+
   model.codeOfTheDay = dailyCode;
-  console.log(model.codeOfTheDay);
-  return dailyCode;
+  model.codeDate = today; 
+
+  console.log("New daily code generated:", model.codeOfTheDay);
+  return model.codeOfTheDay;
 }

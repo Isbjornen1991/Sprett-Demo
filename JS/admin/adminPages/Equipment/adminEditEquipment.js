@@ -11,7 +11,7 @@ function drawAdminEditEquipment() {
                 type="text"
                 placeholder="Søk etter utstyr..."
                 value="${state.searchQuery || ""}"
-                oninput="setEquipmentSearchQuery(this.value)"
+                onchange="setEquipmentSearchQuery(this.value)"
                 style="width: 100%; padding: 8px; box-sizing: border-box; border: 1px solid #333; border-radius: 4px;"
             />
         </div>

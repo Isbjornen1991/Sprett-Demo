@@ -62,5 +62,7 @@ function drawAdminDashboard() {
     </div>
   `;
 
+  generateCodeOfTheDay();
+
   return drawAdminShell(dashboardContent);
 }

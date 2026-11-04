@@ -121,7 +121,7 @@ function lagUtstyrsSokeresultaterHtml(canBook = true) {
         <p style="margin: 0 0 8px 0; color: #64748b;">Antall tilgjengelige: ${tilgjengeligeAntall}</p>
         ${
           elementer.length === 0
-            ? "<p>Ingen utstyr i denne kategorien passer søket.</p>"
+            ? "<p>Det finnes ikke utstyr i denne kategorien som matcher søkekriteriet.</p>"
             : elementer
                 .map((element) => {
                   const erTilgjengelig = erUtstyrTilgjengeligIDag(element);

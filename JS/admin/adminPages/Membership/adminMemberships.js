@@ -21,6 +21,7 @@ function drawAdminMemberships() {
         <div style="flex: 1;">Aktive Bookinger</div>
         <div style="flex: 1;">Kan Booke</div>
         <div style="flex: 0.6; text-align: center;">Prikker</div>
+        <div style="flex: 0.6; text-align: center;">Registrerte Oppmøter</div>
         <div style="flex: 1;">Status</div>
         <div style="flex: 1.2; text-align: right;">Handling</div>
     </div>
@@ -98,6 +99,7 @@ function generateMembersOverview() {
         <div style="flex: 1;">${bookingText}</div>
         <div style="flex: 1; align-items: center;">${bookingToggleHTML}</div>
         <div style="flex: 0.6; text-align: center;">${user.penalties}</div>
+        <div style="flex: 0.6; text-align: center;">${user.registeredShowUps}</div>
         <div style="flex: 1; color: ${statusColor}; font-weight: bold;">${statusText}</div>
         <div style="flex: 1.2; text-align: right; display: flex; gap: 5px; justify-content: flex-end;"> 
           ${actionButtonsHTML}
