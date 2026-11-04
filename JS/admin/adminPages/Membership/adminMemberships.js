@@ -1,4 +1,15 @@
 function drawAdminMemberships() {
+  const state = model.viewState.adminMemberPage;
+  const itemsPerPage = 8;
+  const totalPages = Math.ceil(model.users.length / itemsPerPage) || 1;
+
+  if (state.currentPage > totalPages) {
+    state.currentPage = totalPages;
+  }
+  if (!state.currentPage || state.currentPage < 1) {
+    state.currentPage = 1;
+  }
+
   const adminMembershipsContent = /*HTML*/ `
 <div class="adminCard" style="width:100%;">
     <h2>Medlemsoversikt</h2>
@@ -17,6 +28,18 @@ function drawAdminMemberships() {
     <div class="memberListContainer">
         ${generateMembersOverview()}
     </div>
+
+    ${
+      totalPages > 1
+        ? /*HTML*/ `
+        <div style="display: flex; justify-content: center; align-items: center; gap: 12px; margin-top: 16px;">
+            <button onclick="changeMemberPage(-1)" ${state.currentPage === 1 ? "disabled style='opacity: 0.5; cursor: not-allowed;'" : ""}>Forrige</button>
+            <span>Side ${state.currentPage} av ${totalPages}</span>
+            <button onclick="changeMemberPage(1)" ${state.currentPage === totalPages ? "disabled style='opacity: 0.5; cursor: not-allowed;'" : ""}>Neste</button>
+        </div>
+      `
+        : ""
+    }
 </div>
   `;
 
@@ -24,14 +47,22 @@ function drawAdminMemberships() {
 }
 
 function generateMembersOverview() {
+  const state = model.viewState.adminMemberPage;
+  const itemsPerPage = 8;
   let html = "";
 
   if (model.users.length === 0) {
     return "<p>No members found.</p>";
   }
 
-  for (let i = 0; i < model.users.length; i++) {
-    const user = model.users[i];
+  const startIndex = (state.currentPage - 1) * itemsPerPage;
+  const paginatedUsers = model.users.slice(
+    startIndex,
+    startIndex + itemsPerPage,
+  );
+
+  for (let i = 0; i < paginatedUsers.length; i++) {
+    const user = paginatedUsers[i];
 
     const membershipName = getMembershipName(user.membershipType);
     const paymentText = user.paymentStatus ? "Betalt" : "Utestående";
@@ -75,6 +106,11 @@ function generateMembersOverview() {
     `;
   }
   return html;
+}
+
+function changeMemberPage(direction) {
+  model.viewState.adminMemberPage.currentPage += direction;
+  updateView();
 }
 
 function drawMemberActionButtons(user) {

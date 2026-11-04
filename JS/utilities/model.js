@@ -100,6 +100,7 @@ const model = {
 
     adminMemberPage: {
       sortingMethod: null,
+      currentPage: 1, // 
     },
 
     adminChangeMembershipsPage: {
@@ -127,9 +128,10 @@ const model = {
     },
 
     adminCalenderPage: {
-      selectedTab: "Events", //Equipment
+      selectedTab: "Events",
       selectedDate: null,
       selectedEventId: null,
+      currentPage: 1, // <-- Track current page for the calendar list
     },
 
     adminSignUpsPage: {
@@ -162,6 +164,8 @@ const model = {
       equipmentId: null,
       reservable: false,
       category: null,
+      searchQuery: "", //
+      currentPage: 1, //
     },
 
     adminRoomCreationPage: {

@@ -43,26 +43,57 @@ function createEventsTabHtml() {
 
 function createCalenderRowsHtml() {
   const state = model.viewState.adminCalenderPage;
-  let html = "";
+  const itemsPerPage = 5;
 
-  for (const day of model.calender) {
+  if (model.calender.length === 0) {
+    return "<p>Ingen datoer i kalenderen.</p>";
+  }
+
+  const totalPages = Math.ceil(model.calender.length / itemsPerPage);
+
+  if (state.currentPage > totalPages) {
+    state.currentPage = totalPages || 1;
+  }
+  if (!state.currentPage || state.currentPage < 1) {
+    state.currentPage = 1;
+  }
+
+  const startIndex = (state.currentPage - 1) * itemsPerPage;
+  const paginatedDays = model.calender.slice(
+    startIndex,
+    startIndex + itemsPerPage,
+  );
+
+  let html = "";
+  for (const day of paginatedDays) {
     const isSelected = state.selectedDate === day.date;
 
     html += /*HTML*/ `
-            <div class="subSection calenderRow ${isSelected ? "selected" : ""}">
-                <button onclick="setCalenderDate('${day.date}')">
-                    ${formatDate(day.date)}
-                </button>
-                ${createDateEventsHtml(day)}
-            </div>
-        `;
+        <div class="subSection calenderRow ${isSelected ? "selected" : ""}">
+            <button onclick="setCalenderDate('${day.date}')">
+                ${formatDate(day.date)}
+            </button>
+            ${createDateEventsHtml(day)}
+        </div>
+    `;
   }
 
-  if (html === "") {
-    html = "<p>Ingen datoer i kalenderen.</p>";
+  if (totalPages > 1) {
+    html += /*HTML*/ `
+      <div style="display: flex; justify-content: center; align-items: center; gap: 12px; margin-top: 16px;">
+        <button onclick="changeCalendarPage(-1)" ${state.currentPage === 1 ? "disabled style='opacity: 0.5; cursor: not-allowed;'" : ""}>Forrige</button>
+        <span>Side ${state.currentPage} av ${totalPages}</span>
+        <button onclick="changeCalendarPage(1)" ${state.currentPage === totalPages ? "disabled style='opacity: 0.5; cursor: not-allowed;'" : ""}>Neste</button>
+      </div>
+    `;
   }
 
   return html;
+}
+
+function changeCalendarPage(direction) {
+  model.viewState.adminCalenderPage.currentPage += direction;
+  updateView();
 }
 
 function createDateEventsHtml(day) {
