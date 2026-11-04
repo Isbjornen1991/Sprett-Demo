@@ -24,6 +24,12 @@ function drawAdminDashboard() {
       ${drawDashboardLatestActivity()}
     </div>
 
+    <div id="trainingTemplateArea" class="adminCard">
+      <h2>Treningsmaler</h2>
+      ${drawDashboardTemplate(2)}
+      <button onclick="navigateTo('adminTrainingTemplates')">Se alle</button>
+    </div>
+
     <div class="stackedColumn">
       <div id="bookingArea" class="adminCard">
         <h2>Bookinger/Arrangementer</h2>

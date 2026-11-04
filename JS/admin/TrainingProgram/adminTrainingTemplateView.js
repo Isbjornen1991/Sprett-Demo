@@ -57,3 +57,26 @@ function createTemplateListHtml() {
     if (html === "") html = "<p>Ingen maler ennå.</p>";
     return html;
 }
+
+function drawDashboardTemplate(maxCount) {
+    let html = "";
+    let count = 0;
+
+    for (const template of model.trainingTemplates) {
+        if (count >= maxCount) break;
+
+        html += /*HTML*/ `
+            <div class="subSection roomRow">
+                <span>${template.name} (${template.exercises.length} øvelser)</span>
+                <button onclick="startEditTemplate(${template.templateId}); navigateTo('adminTrainingTemplates')">✎</button>
+            </div>
+        `;
+        count++;
+    }
+
+    if (html === "") {
+        html = "<p>Ingen maler ennå.</p>";
+    }
+
+    return html;
+}
