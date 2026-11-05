@@ -34,8 +34,22 @@ function createLoggedInHeaderHtml() {
       <p style="font-weight: 600; color: #0f172a;">Velkommen, ${username}!</p>
       ${membershipName ? `<p>${membershipName}</p>` : ""}
       <button class="wide-button" style="max-width: 140px; margin-top: 8px; padding: 6px 12px; font-size: 0.8rem; background: #f1f5f9; color: #334155; border: 1px solid #cbd5e1;" onclick="logoutUser()">Log Ut</button>
-    </header>
+      ${adminViewingCustomerPage()}
+      </header>
   `;
+}
+
+function adminViewingCustomerPage() {
+  if (model.app.loggedInUserId == 0) {
+    return /*HTML*/ ` 
+      <div>
+        <button class="logoutBtn" onclick="navigateTo('adminDashboard')">
+          Gå til Adminsidene
+        </button>
+      </div>
+    `;
+  }
+  return ""; // <-- This prevents it from returning 'undefined'
 }
 
 function createFooterHtml() {

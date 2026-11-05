@@ -52,6 +52,7 @@ const model = {
     userWebStorePage: {
       selectedProductId: null,
       selectedQuantity: 1,
+      currentPage: 1,
     },
 
     shoppingCart: [],

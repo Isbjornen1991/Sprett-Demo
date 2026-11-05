@@ -45,11 +45,16 @@ function createCalenderRowsHtml() {
   const state = model.viewState.adminCalenderPage;
   const itemsPerPage = 5;
 
-  if (model.calender.length === 0) {
-    return "<p>Ingen datoer i kalenderen.</p>";
+  // Filter out days that do not have any events
+  const eventDays = model.calender.filter(
+    (day) => day.eventIds && day.eventIds.length > 0,
+  );
+
+  if (eventDays.length === 0) {
+    return "<p>Ingen datoer med arrangementer i kalenderen.</p>";
   }
 
-  const totalPages = Math.ceil(model.calender.length / itemsPerPage);
+  const totalPages = Math.ceil(eventDays.length / itemsPerPage);
 
   if (state.currentPage > totalPages) {
     state.currentPage = totalPages || 1;
@@ -59,10 +64,7 @@ function createCalenderRowsHtml() {
   }
 
   const startIndex = (state.currentPage - 1) * itemsPerPage;
-  const paginatedDays = model.calender.slice(
-    startIndex,
-    startIndex + itemsPerPage,
-  );
+  const paginatedDays = eventDays.slice(startIndex, startIndex + itemsPerPage);
 
   let html = "";
   for (const day of paginatedDays) {
@@ -70,9 +72,9 @@ function createCalenderRowsHtml() {
 
     html += /*HTML*/ `
         <div class="subSection calenderRow ${isSelected ? "selected" : ""}">
-            <button onclick="setCalenderDate('${day.date}')">
+            <span class="calenderDateLabel" style="font-weight: 600; color: #0f172a; min-width: 100px;">
                 ${formatDate(day.date)}
-            </button>
+            </span>
             ${createDateEventsHtml(day)}
         </div>
     `;
