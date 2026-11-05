@@ -115,6 +115,7 @@ function changeMemberPage(direction) {
   updateView();
 }
 
+
 function drawMemberActionButtons(user) {
   if (!user.approved) {
     return /*HTML*/ `
