@@ -33,7 +33,15 @@ function getMembershipName(membershipId) {
   return membership ? membership.name : "Manglende medlemskapstype";
 }
 
-function revokeMembership(membershipId) {}
+function revokeMembership(membershipId) {
+  const index = model.users.findIndex((u) => u.userId === membershipId);
+  
+  if (index !== -1) {
+    
+    
+  }
+
+}
 
 function drawApplications(maxDisplay) {
   let awaitingApproval = [];

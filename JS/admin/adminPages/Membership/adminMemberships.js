@@ -123,7 +123,7 @@ function drawMemberActionButtons(user) {
     `;
   } else {
     return /*HTML*/ `
-      <button onclick="revokeMembership(${user.userId})">Fjern medlemskap</button>
+      <button onclick="denyMembership(${user.userId})">Fjern medlemskap</button>
     `;
   }
 }
