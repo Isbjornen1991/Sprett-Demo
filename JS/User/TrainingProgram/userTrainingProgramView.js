@@ -21,6 +21,38 @@ function createMyProgramsHtml() {
     return html;
 }
 
+function createProgramDetailsHtml() {
+    const state = model.viewState.userTrainingProgramPage;
+    if (state.selectedProgramId === null) return "";
+
+    let program = null;
+    for (const item of model.trainingPrograms) {
+        if (item.programId !== state.selectedProgramId) continue;
+        if (item.userId !== model.app.loggedInUserId) return "";
+        program = item;
+    }
+
+    if (program === null) return "";
+
+    let rows = "";
+    for (const exercise of program.exercises) {
+        rows += /*HTML*/ `
+            <div class=" reservation-row">
+                <strong>${exercise.name}</strong>
+                <span>{exercise.sets} sett x ${exercise.reps} reps . ${exercise.weight} kg</span>
+            </div>
+        ` ;
+    }
+
+    return /*HTML*/ `
+        <div class="info-box">
+            <h3>${program.name}</h3>
+            ${rows}
+            <button class="wide-button" onclick="closeTrainingProgram()">Lukk</button>
+        </div>
+    `;
+}
+
 function drawUserTrainingProgramPage() {
     const state = model.viewState.userTrainingProgramPage;
 

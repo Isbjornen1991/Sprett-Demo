@@ -115,7 +115,6 @@ function changeMemberPage(direction) {
   updateView();
 }
 
-
 function drawMemberActionButtons(user) {
   if (!user.approved) {
     return /*HTML*/ `
@@ -124,7 +123,7 @@ function drawMemberActionButtons(user) {
     `;
   } else {
     return /*HTML*/ `
-      <button onclick="denyMembership(${user.userId})">Fjern medlemskap</button>
+      <button onclick="revokeMembership(${user.userId})">Fjern medlemskap</button>
     `;
   }
 }

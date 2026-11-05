@@ -33,6 +33,7 @@ function getMembershipName(membershipId) {
   return membership ? membership.name : "Manglende medlemskapstype";
 }
 
+function revokeMembership(membershipId) {}
 
 function drawApplications(maxDisplay) {
   let awaitingApproval = [];

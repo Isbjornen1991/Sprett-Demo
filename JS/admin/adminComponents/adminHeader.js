@@ -5,7 +5,7 @@ return /*HTML*/ `
               <div class="userInfo">
                 <span>${displayUserName()}</span>
                 <div class="userAvatar"></div>
-                <button class="logoutBtn" onclick=logoutUser()>Log Ut</button>
+                <button class="logoutBtn" onclick=logoutUser()>Logg Ut</button>
               </div>
     </header>
     `;

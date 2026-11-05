@@ -81,6 +81,7 @@ function drawUserProfileHomePage() {
       <div class="info-box">
         <h3>Mine treningsprogram</h3>
         ${createMyProgramsHtml()}
+        ${createProgramDetailsHtml()}
         <button class="wide-button" onclick="navigateTo('userTrainingProgram')">Lag treningsprogram</button>
       </div>
 

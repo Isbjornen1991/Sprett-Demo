@@ -51,6 +51,24 @@ function saveTrainingProgram() {
 }
 
 function selectTrainingProgram(programId) {
-    model.viewState.userTrainingProgramPage.selectedProgramId = programId;
+    const state = model.viewState.userTrainingProgramPage;
+
+    if (state.selectedProgramId === programId) {
+        state.selectedProgramId = null;
+        updateView();
+        return;
+    }
+
+    for (const program of model.trainingPrograms) {
+        if (program.programId !== programId) continue;
+        if (program.userId !== model.app.loggedInUserId) return;
+        state.selectedProgramId = programId;
+    }
+    
+    updateView();
+}
+
+function closeTrainingProgram() {
+    model.viewState.userTrainingProgramPage.selectedProgramId = null;
     updateView();
 }

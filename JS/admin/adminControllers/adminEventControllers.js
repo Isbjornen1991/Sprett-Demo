@@ -6,7 +6,21 @@ function saveNewEvent() {
     return;
   }
 
-  
+  if (!pageState.title) {
+    alert("Arrangementet må ha en tittel!");
+    return;
+  }
+
+  if (!pageState.startDate) {
+    alert("Arrangementet må ha en startdato!");
+    return;
+  }
+
+  if (!pageState.startTime) {
+    alert("Arrangementet må ha et starttidspunkt!");
+    return;
+  }
+
   let newId = 0;
   for (const event of model.events) {
     if (event.id >= newId) newId = event.id + 1;

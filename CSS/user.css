@@ -272,3 +272,7 @@ body:has(.userLayout) {
     border-radius: 6px;
     margin-bottom: 8px;
 }
+
+.info-box h3 + .reservation-row {
+  margin-top: 8px;
+}
